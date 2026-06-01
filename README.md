@@ -1,6 +1,6 @@
 # Go 語言學習資源導讀
 
-本目錄收錄十份 Go 語言學習文件，依照學習階段循序漸進，建議按以下順序閱讀。
+本目錄收錄十六份 Go 語言學習文件，依照學習階段循序漸進，建議按以下順序閱讀。
 
 ---
 
@@ -8,37 +8,44 @@
 
 ```text
 go_lang_data/
-├── README.md                   ← 你在這裡
+├── README.md                        ← 你在這裡
 │
 ├── ── 基礎入門 ──
-├── GO_LEARNING_GUIDE.md        ← 第一步：入門知識地圖
-├── GO_DEPTH_GUIDE.md           ← 第二步：語法深度解析
+├── GO_LEARNING_GUIDE.md             ← 第 1 步：入門知識地圖
+├── GO_DEPTH_GUIDE.md                ← 第 2 步：語法深度解析
 │
-├── ── 核心主題 ──
-├── GO_STRUCT_JSON_GUIDE.md     ← Struct 設計與 JSON 處理
-├── GO_CONCURRENCY_GUIDE.md     ← 併發控制完整指南
-├── GO_CONTEXT_GUIDE.md         ← context 套件完整指南
+├── ── 核心語言特性 ──
+├── GO_STRUCT_JSON_GUIDE.md          ← 第 3 步：Struct 設計與 JSON 處理
+├── GO_ADVANCED_FEATURES_GUIDE.md    ← 第 4 步：進階語言特性
+├── GO_CONCURRENCY_GUIDE.md          ← 第 5 步：併發控制完整指南
+├── GO_CONTEXT_GUIDE.md              ← 第 6 步：context 套件完整指南
+│
+├── ── 實戰應用 ──
+├── GO_STDLIB_GUIDE.md               ← 第 7 步：常用標準庫指南
+├── GO_HTTP_GUIDE.md                 ← 第 8 步：HTTP 開發完整指南
+├── GO_DATABASE_GUIDE.md             ← 第 9 步：資料庫操作完整指南
 │
 ├── ── 進階主題 ──
-├── GO_GENERICS_GUIDE.md        ← 泛型（Go 1.18+）
-├── GO_PATTERNS_GUIDE.md        ← 常用設計模式
-├── GO_MEMORY_MODEL_GUIDE.md    ← 記憶體模型與效能
+├── GO_GENERICS_GUIDE.md             ← 第 10 步：泛型（Go 1.18+）
+├── GO_PATTERNS_GUIDE.md             ← 第 11 步：常用設計模式
+├── GO_MEMORY_MODEL_GUIDE.md         ← 第 12 步：記憶體模型與效能
+├── GO_ARCHITECTURE_GUIDE.md         ← 第 13 步：架構設計實戰指南
 │
 ├── ── 工程實踐 ──
-├── GO_TESTING_GUIDE.md         ← 測試完整指南
+├── GO_TESTING_GUIDE.md              ← 第 14 步：測試完整指南
+├── GO_TOOLCHAIN_GUIDE.md            ← 第 15 步：工具鏈與工程實務
 │
 └── ── 面試準備 ──
-    └── GO_INTERVIEW_GUIDE.md   ← 面試題目與解析（26題）
+    └── GO_INTERVIEW_GUIDE.md        ← 第 16 步：面試題目與解析（26題）
 ```
 
 ---
 
 ## 建議學習順序
 
-### 第一步｜[GO_LEARNING_GUIDE.md](GO_LEARNING_GUIDE.md)
-**Go 入門指南：核心特性與基礎架構**
+### 第 1 步｜[GO_LEARNING_GUIDE.md](GO_LEARNING_GUIDE.md)
 
-適合剛接觸 Go 的初學者，建立整體知識地圖。
+Go 入門指南：核心特性與基礎架構。適合剛接觸 Go 的初學者，建立整體知識地圖。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -50,10 +57,9 @@ go_lang_data/
 
 ---
 
-### 第二步｜[GO_DEPTH_GUIDE.md](GO_DEPTH_GUIDE.md)
-**語法深度解析：指標、集合、介面**
+### 第 2 步｜[GO_DEPTH_GUIDE.md](GO_DEPTH_GUIDE.md)
 
-適合已掌握基礎語法，想深入理解底層機制的學習者。
+語法深度解析：指標、集合、介面。適合已掌握基礎語法，想深入理解底層機制的學習者。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -63,9 +69,9 @@ go_lang_data/
 
 ---
 
-### 第三步｜[GO_STRUCT_JSON_GUIDE.md](GO_STRUCT_JSON_GUIDE.md)：Struct 深度解析與 JSON 操作
+### 第 3 步｜[GO_STRUCT_JSON_GUIDE.md](GO_STRUCT_JSON_GUIDE.md)
 
-幾乎所有 API 開發都會用到的核心知識。
+Struct 深度解析與 JSON 操作。幾乎所有 API 開發都會用到的核心知識。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -77,9 +83,26 @@ go_lang_data/
 
 ---
 
-### 第四步｜[GO_CONCURRENCY_GUIDE.md](GO_CONCURRENCY_GUIDE.md)：併發控制深度指南
+### 第 4 步｜[GO_ADVANCED_FEATURES_GUIDE.md](GO_ADVANCED_FEATURES_GUIDE.md)
 
-掌握正確的併發控制，避免 Race Condition 與 Deadlock。
+進階語言特性：init()、iota、reflect、embed 等。補完語言細節，避免常見陷阱。
+
+| 章節 | 內容 |
+| :--- | :--- |
+| 1. init() | 執行順序圖解、跨套件依賴、合理使用場景 |
+| 2. iota | 位元旗標、跳值、Stringer 搭配 |
+| 3. 具名回傳值 | naked return、與 defer 互動、修改回傳值 |
+| 4. 型別別名 vs 型別定義 | 可賦值性差異、方法集差異 |
+| 5. reflect | TypeOf/ValueOf、struct tag 讀取、動態呼叫、效能警告 |
+| 6. Build Tags | //go:build 語法、整合測試隔離 |
+| 7. //go:embed | 嵌入檔案、目錄、embed.FS |
+| 8–10. 函數型別、高階函數、unsafe | 第一類函數、Middleware 模式、unsafe 警告 |
+
+---
+
+### 第 5 步｜[GO_CONCURRENCY_GUIDE.md](GO_CONCURRENCY_GUIDE.md)
+
+併發控制深度指南。掌握正確的併發控制，避免 Race Condition 與 Deadlock。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -90,9 +113,9 @@ go_lang_data/
 
 ---
 
-### 第五步｜[GO_CONTEXT_GUIDE.md](GO_CONTEXT_GUIDE.md)：context 套件完整指南
+### 第 6 步｜[GO_CONTEXT_GUIDE.md](GO_CONTEXT_GUIDE.md)
 
-分散式系統與 HTTP 開發的必備知識。
+context 套件完整指南。分散式系統與 HTTP 開發的必備知識。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -103,9 +126,61 @@ go_lang_data/
 
 ---
 
-### 第六步｜[GO_GENERICS_GUIDE.md](GO_GENERICS_GUIDE.md)：泛型（Generics）完整指南（Go 1.18+）
+### 第 7 步｜[GO_STDLIB_GUIDE.md](GO_STDLIB_GUIDE.md)
 
-寫出可復用的泛型資料結構與工具函數。
+常用標準庫指南。掌握日常開發中最常使用的標準套件。
+
+| 章節 | 內容 |
+| :--- | :--- |
+| 1. strings | Contains/Split/Builder/Reader |
+| 2. strconv | Itoa/Atoi、ParseFloat、進制轉換 |
+| 3. time | 格式化、Parse、Duration、Timer/Ticker |
+| 4. os | 環境變數、文件操作、目錄操作 |
+| 5. io / bufio | Reader/Writer 介面、逐行讀取、串流複製 |
+| 6. fmt | 格式動詞對照表、Stringer 介面 |
+| 7. regexp | Compile vs MustCompile、擷取群組 |
+| 8. sort / slices | 自訂排序、Go 1.21 新 API |
+| 9. flag | 命令列參數、子命令模式 |
+| 10. log / slog | 結構化日誌（Go 1.21+）、JSON Handler |
+
+---
+
+### 第 8 步｜[GO_HTTP_GUIDE.md](GO_HTTP_GUIDE.md)
+
+HTTP 開發完整指南：net/http 原生用法與 Gin 框架實戰。
+
+| 章節 | 內容 |
+| :--- | :--- |
+| 1. net/http Server | Handler 介面、ServeMux、Request/Response 解析 |
+| 2. net/http Client | GET/POST、自訂 Client 與 Timeout、JSON Response 解析 |
+| 3. Gin 入門 | 路由群組、路徑/Query 參數、ShouldBindJSON |
+| 4. Gin Middleware | 執行順序圖解、認證/RequestID/CORS 實作 |
+| 5. 統一回應格式 | Response struct、Success/Fail 輔助函數 |
+| 6. 請求驗證 | binding tag、驗證錯誤格式化、自訂驗證器 |
+| 7. RESTful 規範 | 路由命名、狀態碼選擇、分頁設計 |
+| 8. 常見陷阱 | ShouldBind vs Bind、Abort 正確用法 |
+
+---
+
+### 第 9 步｜[GO_DATABASE_GUIDE.md](GO_DATABASE_GUIDE.md)
+
+資料庫操作完整指南。掌握 Go 中三大資料庫操作方式，從標準庫到 ORM。
+
+| 章節 | 內容 |
+| :--- | :--- |
+| 1. database/sql | Driver 模式、連線池設定、Query/Exec/Scan |
+| 2. Prepared Statement | SQL Injection 防護、Stmt 生命週期 |
+| 3. Transaction | Begin/Commit/Rollback、defer 安全模式、轉帳範例 |
+| 4. sqlx | StructScan、Named Query、IN 查詢、Get vs Select |
+| 5–8. GORM | Model 定義、CRUD、進階查詢、關聯、Transaction |
+| 9. 常見陷阱 | rows 洩漏、N+1 問題、軟刪除、時區 |
+| 10. Repository Pattern | 介面設計、GORM 實作、Mock 測試 |
+
+---
+
+### 第 10 步｜[GO_GENERICS_GUIDE.md](GO_GENERICS_GUIDE.md)
+
+泛型（Generics）完整指南（Go 1.18+）。寫出可復用的泛型資料結構與工具函數。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -116,9 +191,9 @@ go_lang_data/
 
 ---
 
-### 第七步｜[GO_PATTERNS_GUIDE.md](GO_PATTERNS_GUIDE.md)：Go 常用設計模式
+### 第 11 步｜[GO_PATTERNS_GUIDE.md](GO_PATTERNS_GUIDE.md)
 
-理解開源庫設計思路，寫出更優雅的程式碼。
+Go 常用設計模式。理解開源庫設計思路，寫出更優雅的程式碼。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -132,9 +207,9 @@ go_lang_data/
 
 ---
 
-### 第八步｜[GO_MEMORY_MODEL_GUIDE.md](GO_MEMORY_MODEL_GUIDE.md)：記憶體模型、Stack、Heap 與效能優化
+### 第 12 步｜[GO_MEMORY_MODEL_GUIDE.md](GO_MEMORY_MODEL_GUIDE.md)
 
-理解底層記憶體管理，寫出對 GC 友善的程式碼。
+記憶體模型、Stack、Heap 與效能優化。理解底層記憶體管理，寫出對 GC 友善的程式碼。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -146,9 +221,26 @@ go_lang_data/
 
 ---
 
-### 第九步｜[GO_TESTING_GUIDE.md](GO_TESTING_GUIDE.md)：Go 測試完整指南
+### 第 13 步｜[GO_ARCHITECTURE_GUIDE.md](GO_ARCHITECTURE_GUIDE.md)
 
-寫出可靠的測試，建立重構的安全網。
+架構設計實戰指南。將所有知識整合，設計可維護、可測試的 Go 服務。
+
+| 章節 | 內容 |
+| :--- | :--- |
+| 1. Clean Architecture | 三層架構圖解、依賴方向規則、目錄結構 |
+| 2–4. 三層實作 | Repository / Service / Handler 完整範例 |
+| 5. 依賴注入 | 手動 wire-up、Google Wire 工具 |
+| 6. 設定管理 | godotenv、Viper 多來源設定、多環境切換 |
+| 7. 結構化日誌 | slog、Zap Sugar vs Logger、Request ID 追蹤 |
+| 8. Graceful Shutdown | Signal 監聽、http.Server.Shutdown、5 秒 Timeout |
+| 9. Middleware 設計 | JWT 認證、限流、Panic Recovery |
+| 10. 完整範例 | User API 端對端串接 |
+
+---
+
+### 第 14 步｜[GO_TESTING_GUIDE.md](GO_TESTING_GUIDE.md)
+
+Go 測試完整指南。寫出可靠的測試，建立重構的安全網。
 
 | 章節 | 內容 |
 | :--- | :--- |
@@ -160,9 +252,26 @@ go_lang_data/
 
 ---
 
-### 第十步｜[GO_INTERVIEW_GUIDE.md](GO_INTERVIEW_GUIDE.md)：Go 面試題目與解析（26 題）
+### 第 15 步｜[GO_TOOLCHAIN_GUIDE.md](GO_TOOLCHAIN_GUIDE.md)
 
-自我檢核學習成果，準備技術面試。
+工具鏈與工程實務指南。掌握 Go 的完整開發工具鏈，提升工程品質與交付效率。
+
+| 章節 | 內容 |
+| :--- | :--- |
+| 1. Go Modules | go.mod/go.sum 結構、replace、Go Workspace |
+| 2. 內建工具 | go build 交叉編譯、go vet、go generate |
+| 3. 程式碼品質 | golangci-lint、.golangci.yml 設定、gosec |
+| 4. Makefile | 完整 Makefile 範例（build/test/lint/docker） |
+| 5. Docker 化 | 多階段建置、scratch vs alpine、docker-compose |
+| 6. 開發環境 | Air 熱重載、Delve 除錯器 |
+| 7. CI/CD | GitHub Actions 完整範例、Go 版本矩陣測試 |
+| 8. 效能分析 | pprof 啟用、go tool pprof、benchstat |
+
+---
+
+### 第 16 步｜[GO_INTERVIEW_GUIDE.md](GO_INTERVIEW_GUIDE.md)
+
+Go 面試題目與解析（26 題）。自我檢核學習成果，準備技術面試。
 
 | 類別 | 題數 | 代表題目 |
 | :--- | :--- | :--- |
@@ -192,21 +301,54 @@ go_lang_data/
 | 型別斷言怎麼呼叫額外方法？ | GO_DEPTH_GUIDE § 3-5-1 |
 | struct Tag 怎麼寫？ | GO_STRUCT_JSON_GUIDE § 3 |
 | JSON 如何處理 null 欄位？ | GO_STRUCT_JSON_GUIDE § 7 |
+| init() 的執行順序是什麼？ | GO_ADVANCED_FEATURES_GUIDE § 1 |
+| iota 如何實作位元旗標？ | GO_ADVANCED_FEATURES_GUIDE § 2-3 |
+| 具名回傳值 + defer 如何修改回傳值？ | GO_ADVANCED_FEATURES_GUIDE § 3-3 |
+| 型別別名 vs 型別定義有什麼差？ | GO_ADVANCED_FEATURES_GUIDE § 4 |
+| reflect 如何讀取 struct tag？ | GO_ADVANCED_FEATURES_GUIDE § 5-4 |
+| //go:build 整合測試標籤怎麼用？ | GO_ADVANCED_FEATURES_GUIDE § 6-3 |
+| //go:embed 如何嵌入整個目錄？ | GO_ADVANCED_FEATURES_GUIDE § 7-3 |
 | Channel 什麼情況會阻塞？ | GO_CONCURRENCY_GUIDE § 2-1 |
 | Deadlock 是怎麼發生的？ | GO_CONCURRENCY_GUIDE § 2-6 |
 | sync.Map vs map + Mutex？ | GO_CONCURRENCY_GUIDE § 3-5-1 |
 | context 怎麼傳遞取消訊號？ | GO_CONTEXT_GUIDE § 3–4 |
 | HTTP 請求超時怎麼設定？ | GO_CONTEXT_GUIDE § 5 |
+| 字串高效拼接用什麼？ | GO_STDLIB_GUIDE § 1-5 |
+| Go 的時間格式字串為何是 2006？ | GO_STDLIB_GUIDE § 3-7 |
+| 如何逐行讀取大型文件？ | GO_STDLIB_GUIDE § 5-4 |
+| fmt 格式動詞 %v 和 %+v 差在哪？ | GO_STDLIB_GUIDE § 6-3 |
+| slog 結構化日誌怎麼用？ | GO_STDLIB_GUIDE § 10-2 |
+| ShouldBindJSON vs BindJSON 差異？ | GO_HTTP_GUIDE § 8-1 |
+| Gin Middleware 的執行順序？ | GO_HTTP_GUIDE § 4-1 |
+| 如何寫統一 API 回應格式？ | GO_HTTP_GUIDE § 5 |
+| net/http Client 如何設定 Timeout？ | GO_HTTP_GUIDE § 2-2 |
+| database/sql 如何防止 SQL Injection？ | GO_DATABASE_GUIDE § 2-1 |
+| rows.Close() 為何要用 defer？ | GO_DATABASE_GUIDE § 9-1 |
+| Transaction 的 defer Rollback 寫法？ | GO_DATABASE_GUIDE § 3-3 |
+| N+1 問題是什麼？如何解決？ | GO_DATABASE_GUIDE § 9-2 |
+| GORM Preload vs Joins 差在哪？ | GO_DATABASE_GUIDE § 6-5 |
+| database/sql vs sqlx vs GORM 怎麼選？ | GO_DATABASE_GUIDE § 9-5 |
+| Repository Pattern 怎麼寫？ | GO_DATABASE_GUIDE § 10 |
 | 什麼是泛型約束？ | GO_GENERICS_GUIDE § 3 |
 | Functional Options 模式？ | GO_PATTERNS_GUIDE § 1 |
 | Fan-out / Fan-in 怎麼實作？ | GO_PATTERNS_GUIDE § 4 |
 | 變數什麼時候會逃逸到 Heap？ | GO_MEMORY_MODEL_GUIDE § 2 |
 | 如何用 pprof 找記憶體問題？ | GO_MEMORY_MODEL_GUIDE § 7 |
+| Clean Architecture 三層各自負責什麼？ | GO_ARCHITECTURE_GUIDE § 1-2 |
+| 依賴注入 main.go 怎麼組裝元件？ | GO_ARCHITECTURE_GUIDE § 5-3 |
+| Graceful Shutdown 如何實作？ | GO_ARCHITECTURE_GUIDE § 8 |
+| JWT Middleware 怎麼寫？ | GO_ARCHITECTURE_GUIDE § 9-2 |
+| Viper 多環境設定怎麼設計？ | GO_ARCHITECTURE_GUIDE § 6-4 |
 | Table-Driven Test 怎麼寫？ | GO_TESTING_GUIDE § 3 |
 | 怎麼寫 Mock 測試？ | GO_TESTING_GUIDE § 8 |
+| go.mod replace 指令怎麼用？ | GO_TOOLCHAIN_GUIDE § 1-5 |
+| golangci-lint 如何設定？ | GO_TOOLCHAIN_GUIDE § 3-1 |
+| Go 如何交叉編譯不同平台？ | GO_TOOLCHAIN_GUIDE § 2-1 |
+| Docker 多階段建置怎麼寫？ | GO_TOOLCHAIN_GUIDE § 5-1 |
+| Air 熱重載如何設定？ | GO_TOOLCHAIN_GUIDE § 6-1 |
 | panic 何時該用？ | GO_INTERVIEW_GUIDE Q8 |
 | Goroutine 洩漏怎麼避免？ | GO_INTERVIEW_GUIDE Q15 |
 
 ---
 
-文件更新日期：2026年5月29日
+文件更新日期：2026年6月1日
