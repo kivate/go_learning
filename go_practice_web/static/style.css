@@ -1,0 +1,665 @@
+/* =========================================
+   CSS Variables — Dark (default) / Light
+   ========================================= */
+:root {
+  --bg-base:      #1e1e1e;
+  --bg-panel:     #252526;
+  --bg-bar:       #333333;
+  --bg-sidebar:   #2d2d2d;
+  --bg-hover:     #3c3c3c;
+  --bg-active:    #094771;
+  --border:       #454545;
+  --text-primary: #d4d4d4;
+  --text-muted:   #858585;
+  --text-accent:  #9cdcfe;
+  --accent:       #0078d4;
+  --accent-hover: #1484d4;
+  --success:      #4ec9b0;
+  --error:        #f48771;
+  --warning:      #ddb46c;
+  --header-h:     48px;
+  --sidebar-w:    272px;
+  --output-h:     180px;
+  --bar-h:        36px;
+  --radius:       4px;
+  --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-code:    'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+html.light {
+  --bg-base:      #f3f3f3;
+  --bg-panel:     #ffffff;
+  --bg-bar:       #e8e8e8;
+  --bg-sidebar:   #f0f0f0;
+  --bg-hover:     #e0e0e0;
+  --bg-active:    #cce5ff;
+  --border:       #d0d0d0;
+  --text-primary: #1e1e1e;
+  --text-muted:   #6e6e6e;
+  --text-accent:  #0451a5;
+  --accent:       #0078d4;
+  --success:      #008060;
+  --error:        #cd3131;
+}
+
+/* =========================================
+   Reset & Base
+   ========================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+button { cursor: pointer; font-family: var(--font-ui); border: none; }
+
+/* =========================================
+   Header
+   ========================================= */
+.header {
+  height: var(--header-h);
+  background: var(--bg-bar);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.header-left  { display: flex; align-items: center; gap: 10px; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+.logo {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: .3px;
+}
+
+.shortcut-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.sidebar-toggle {
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  line-height: 1;
+}
+.sidebar-toggle:hover { background: var(--bg-hover); }
+
+.btn-icon {
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  line-height: 1;
+}
+.btn-icon:hover { background: var(--bg-hover); }
+
+/* =========================================
+   Layout
+   ========================================= */
+.layout {
+  display: flex;
+  height: calc(100vh - var(--header-h));
+  overflow: hidden;
+}
+
+/* =========================================
+   Sidebar
+   ========================================= */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width .2s, min-width .2s;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  border-right: none;
+}
+
+.sidebar-title {
+  padding: 10px 14px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+#chapterList {
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Chapter items */
+.chapter-item { border-bottom: 1px solid var(--border); }
+
+.chapter-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-primary);
+  user-select: none;
+  position: relative;
+}
+.chapter-header:hover { background: var(--bg-hover); }
+.chapter-header:hover .ch-arrow { color: var(--text-primary); }
+
+.ch-arrow {
+  font-size: 9px;
+  color: var(--text-muted);
+  transition: transform .2s ease, color .15s;
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.chapter-item.open .ch-arrow { transform: rotate(90deg); }
+
+/* 平滑摺疊動畫 */
+.exercise-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .22s ease;
+}
+.chapter-item.open .exercise-list {
+  max-height: 600px;
+}
+
+.exercise-item {
+  padding: 7px 14px 7px 30px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-left: 2px solid transparent;
+  transition: background .1s, color .1s;
+}
+.exercise-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+.exercise-item.active {
+  background: var(--bg-active);
+  color: #ffffff;
+  border-left-color: var(--accent);
+}
+
+/* =========================================
+   Main
+   ========================================= */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* =========================================
+   Top Row  (concept + editor side by side)
+   ========================================= */
+.top-row {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* --- Concept Panel --- */
+.concept-panel {
+  width: 38%;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+.concept-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- Concept content (markdown) --- */
+.concept-section h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-accent);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.concept-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 12px 0 6px;
+  color: var(--text-primary);
+}
+.concept-section p, .exercise-section p {
+  line-height: 1.65;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.concept-section ul, .concept-section ol,
+.exercise-section ul, .exercise-section ol {
+  padding-left: 18px;
+  margin-bottom: 8px;
+}
+.concept-section li, .exercise-section li { line-height: 1.6; margin-bottom: 3px; }
+
+.concept-section code, .exercise-section code {
+  background: var(--bg-hover);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: var(--font-code);
+  font-size: 12px;
+  color: var(--text-accent);
+}
+
+.concept-section pre, .exercise-section pre {
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+.concept-section pre code, .exercise-section pre code {
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+/* Exercise description box */
+.exercise-section {
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.exercise-section h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+/* Table in concept */
+.concept-section table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 8px 0;
+  font-size: 12px;
+}
+.concept-section th, .concept-section td {
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  text-align: left;
+}
+.concept-section th { background: var(--bg-hover); font-weight: 600; }
+
+/* Blockquote / callouts */
+.concept-section blockquote {
+  border-left: 3px solid var(--warning);
+  padding: 8px 12px;
+  margin: 8px 0;
+  background: var(--bg-hover);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* --- Editor Panel --- */
+.editor-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--bg-panel);
+}
+
+#monacoContainer {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* =========================================
+   Panel Bar  (shared top bar)
+   ========================================= */
+.panel-bar {
+  height: var(--bar-h);
+  min-height: var(--bar-h);
+  background: var(--bg-bar);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+
+.panel-bar-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor-actions { display: flex; align-items: center; gap: 6px; }
+
+/* =========================================
+   Buttons
+   ========================================= */
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  padding: 5px 14px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 600;
+  transition: background .15s;
+}
+.btn-primary:hover  { background: var(--accent-hover); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+.btn-secondary {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  padding: 5px 12px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  border: 1px solid var(--border);
+  transition: background .15s;
+}
+.btn-secondary:hover { background: var(--bg-active); color: #fff; }
+
+/* 標記完成按鈕 */
+.btn-done {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 5px 12px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  border: 1px solid var(--border);
+  transition: background .15s, color .15s;
+}
+.btn-done:hover    { background: var(--bg-hover); color: var(--text-primary); }
+.btn-done.done     { background: #1a4a1a; color: var(--success); border-color: var(--success); }
+html.light .btn-done.done { background: #d4edda; color: #155724; border-color: #28a745; }
+
+/* concept-actions（標記完成 + 查看解答） */
+.concept-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+/* =========================================
+   Progress badge (header)
+   ========================================= */
+.progress-badge {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
+/* =========================================
+   Dividers (draggable)
+   ========================================= */
+.vdivider {
+  width: 4px;
+  background: var(--border);
+  cursor: col-resize;
+  flex-shrink: 0;
+  transition: background .1s;
+}
+.vdivider:hover, .vdivider.dragging { background: var(--accent); }
+
+.hdivider {
+  height: 4px;
+  background: var(--border);
+  cursor: row-resize;
+  flex-shrink: 0;
+  transition: background .1s;
+}
+.hdivider:hover, .hdivider.dragging { background: var(--accent); }
+
+/* =========================================
+   Output Panel
+   ========================================= */
+.output-panel {
+  height: var(--output-h);
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.run-time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.output-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 14px;
+  font-family: var(--font-code);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.output-content.success { color: var(--success); }
+.output-content.error   { color: var(--error); }
+
+/* =========================================
+   Scrollbar styling
+   ========================================= */
+::-webkit-scrollbar         { width: 8px; height: 8px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* =========================================
+   Sidebar — 完成標記
+   ========================================= */
+.exercise-item .done-mark {
+  display: inline-block;
+  width: 14px;
+  font-size: 10px;
+  color: var(--success);
+  opacity: 0;
+  margin-right: 2px;
+}
+.exercise-item.done .done-mark { opacity: 1; }
+.exercise-item.done { color: var(--success); }
+.exercise-item.done.active { color: #fff; }
+
+/* =========================================
+   Sidebar — 隨機挑戰區塊
+   ========================================= */
+.random-section {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-base);
+}
+
+.random-header {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: var(--text-primary);
+}
+
+.random-inner {
+  padding: 8px 10px 12px;
+}
+
+.random-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.btn-random {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-random:hover { background: var(--accent-hover); }
+
+.btn-rand-again {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.btn-rand-again:hover { background: var(--bg-active); color: #fff; }
+
+.rand-type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rand-type-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: left;
+  cursor: pointer;
+  transition: background .1s, color .1s;
+}
+.rand-type-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+/* =========================================
+   LeetCode 難度相關
+   ========================================= */
+
+/* 側欄難度小圓點 */
+.lc-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.lc-dot.easy   { background: #00b8a3; }
+.lc-dot.medium { background: #ffb800; }
+.lc-dot.hard   { background: #ff2d55; }
+
+/* 難度 badge（標題旁） */
+.difficulty-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.difficulty-badge.easy   { background: rgba(0,184,163,.18); color: #00b8a3; }
+.difficulty-badge.medium { background: rgba(255,184,0,.18); color: #c89400; }
+.difficulty-badge.hard   { background: rgba(255,45,85,.18); color: #ff2d55; }
+html.light .difficulty-badge.medium { color: #a07800; }
+
+/* 題號 */
+.lc-num {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-right: 2px;
+}
+
+/* 描述區的 badge / tag（marked.js 渲染 <span>） */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 10px;
+  margin-right: 4px;
+}
+.badge.easy   { background: rgba(0,184,163,.2); color: #00b8a3; }
+.badge.medium { background: rgba(255,184,0,.2); color: #c89400; }
+.badge.hard   { background: rgba(255,45,85,.2); color: #ff2d55; }
+html.light .badge.medium { color: #a07800; }
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1px 8px;
+  margin-right: 4px;
+  color: var(--text-muted);
+}
+
+/* 測試結果輸出美化 */
+.output-content.success { color: var(--text-primary); }
+.output-content.success::first-line { color: var(--success); }
+
+/* =========================================
+   Responsive: hide sidebar on narrow screen
+   ========================================= */
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .concept-panel { width: 100%; }
+  .top-row { flex-direction: column; }
+}

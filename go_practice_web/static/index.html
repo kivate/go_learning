@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Go 語言練習平台</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-left">
+    <button class="sidebar-toggle" id="sidebarToggle" title="切換側欄">☰</button>
+    <span class="logo">🐹 Go 語言練習平台</span>
+  </div>
+  <div class="header-right">
+    <span class="progress-badge">完成 <span id="progressText">0 / 0</span></span>
+    <span class="shortcut-hint">Ctrl+Enter 執行</span>
+    <button class="btn-icon" id="themeToggle" title="切換主題">☀️</button>
+  </div>
+</header>
+
+<!-- ===== LAYOUT ===== -->
+<div class="layout" id="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-title">章節導覽</div>
+    <div id="chapterList"></div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+
+    <!-- TOP ROW: Concept (left) + Editor (right) -->
+    <div class="top-row">
+
+      <!-- Concept Panel -->
+      <div class="concept-panel" id="conceptPanel">
+        <div class="panel-bar">
+          <span class="panel-bar-title" id="exerciseTitle">← 請選擇一個練習題</span>
+          <div class="concept-actions">
+            <button type="button" class="btn-done" id="markDoneBtn">標記完成</button>
+            <button type="button" class="btn-secondary" id="showSolutionBtn">查看解答</button>
+          </div>
+        </div>
+        <div class="concept-scroll">
+          <div class="concept-section" id="conceptContent"></div>
+          <div class="exercise-section" id="exerciseDesc"></div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div class="vdivider" id="vdivider"></div>
+
+      <!-- Editor Panel -->
+      <div class="editor-panel" id="editorPanel">
+        <div class="panel-bar">
+          <span class="panel-bar-title">程式碼編輯器</span>
+          <div class="editor-actions">
+            <button class="btn-secondary" id="resetBtn">重置</button>
+            <button class="btn-primary" id="runBtn">▶ 執行</button>
+          </div>
+        </div>
+        <div id="monacoContainer"></div>
+      </div>
+    </div>
+
+    <!-- Horizontal divider -->
+    <div class="hdivider" id="hdivider"></div>
+
+    <!-- Output Panel -->
+    <div class="output-panel" id="outputPanel">
+      <div class="panel-bar">
+        <span class="panel-bar-title">執行結果</span>
+        <span class="run-time" id="runTime"></span>
+      </div>
+      <pre class="output-content" id="outputContent">// 點擊「▶ 執行」或按 Ctrl+Enter 執行程式碼</pre>
+    </div>
+
+  </div><!-- end .main -->
+</div><!-- end .layout -->
+
+<script src="exercises.js"></script>
+<script src="lc_exercises.js"></script>
+<script src="random_exercises.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
