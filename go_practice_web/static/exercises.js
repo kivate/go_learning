@@ -757,13 +757,18 @@ import (
 )
 
 `,
-    template: `// TODO: 定義 Product struct，加上正確的 json tag
+    template: `// TODO: 定義 Product struct，補上正確的 json tag
+// 欄位：ID int, Name string, Price float64, InStock bool
 type Product struct {
 }
 
-// TODO: 解析 JSON 字串，回傳 Product 和 error
+// parseProduct 已實作，只需定義正確的 struct 欄位與 tag
 func parseProduct(raw string) (Product, error) {
-    return Product{}, nil
+    var p Product
+    if err := json.Unmarshal([]byte(raw), &p); err != nil {
+        return Product{}, err
+    }
+    return p, nil
 }`,
     solution: `type Product struct {
     ID      int     \`json:"id"\`
@@ -2620,19 +2625,27 @@ func main() {
 	r2 := first(after(100*time.Millisecond, "A"), after(10*time.Millisecond, "B"))
 	check("first：b 先到 → B", r2 == "B", fmt.Sprintf("got=%q", r2))
 
-	// orDone：done 關閉後停止收集
+	// orDone：done 已關閉且 in 為空 → 立即回傳空 slice（確定性測試）
 	done := make(chan struct{})
-	in := make(chan int, 10)
-	for _, v := range []int{1, 2, 3, 4, 5} {
-		in <- v
-	}
-	time.Sleep(5 * time.Millisecond)
-	close(done)
+	in := make(chan int) // 無緩衝且無 sender，接收會阻塞
+	close(done)          // 先關閉 done
 	got := orDone(done, in)
-	sort.Ints(got)
-	want := []int{1, 2, 3, 4, 5}
-	check("orDone 收集 done 前的資料", reflect.DeepEqual(got, want),
-		fmt.Sprintf("got=%v", got))
+	check("orDone done 已關閉 → 立即回傳", len(got) == 0,
+		fmt.Sprintf("got=%v (長度應為 0)", got))
+
+	// orDone：收集 3 個值後被取消
+	done2 := make(chan struct{})
+	in2 := make(chan int)
+	result2 := make(chan []int, 1)
+	go func() { result2 <- orDone(done2, in2) }()
+	in2 <- 10
+	in2 <- 20
+	in2 <- 30
+	close(done2)
+	got2 := <-result2
+	sort.Ints(got2)
+	check("orDone 收到 3 個值後取消", reflect.DeepEqual(got2, []int{10, 20, 30}),
+		fmt.Sprintf("got=%v", got2))
 
 	fmt.Printf("\\n結果：%d / %d 通過\\n", passed, total)
 }`,
@@ -3053,24 +3066,16 @@ import (
 )
 
 `,
-    template: `func Add(a, b int) int {
-    // TODO
-    return 0
-}
-
-func Sub(a, b int) int {
-    // TODO
-    return 0
-}
-
-func Mul(a, b int) int {
-    // TODO
-    return 0
-}
+    template: `// TODO: 補全各函數的實作（return 0 / return 0, nil 是佔位符）
+func Add(a, b int) int { return 0 }
+func Sub(a, b int) int { return 0 }
+func Mul(a, b int) int { return 0 }
 
 func Div(a, b int) (int, error) {
-    // TODO: b==0 回傳 errors.New("division by zero")
-    return 0, nil
+    if b == 0 {
+        return 0, errors.New("division by zero")
+    }
+    return 0, nil // TODO: 回傳正確的商
 }`,
     solution: `func Add(a, b int) int { return a + b }
 func Sub(a, b int) int { return a - b }

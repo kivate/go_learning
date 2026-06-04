@@ -212,7 +212,13 @@ function selectExercise(ex) {
 
   // 有 prefix 的題目：提示只填函數主體
   if (ex.prefix) {
-    setOutput('// 只需填入函數邏輯，不需要 package main\n// 點擊「▶ 執行」自動執行所有測試案例', '');
+    setOutput(
+      '📌  只需填入函數主體（函數簽名已給定）\n' +
+      '    ✗  不要加 package main / import / func main()\n' +
+      '    ✓  系統自動組合並執行所有測試案例\n\n' +
+      '    按 Ctrl+Enter 或點擊「▶ 執行」開始測試',
+      ''
+    );
   } else {
     setOutput('// 點擊「▶ 執行」或按 Ctrl+Enter 執行程式碼', '');
   }
@@ -238,6 +244,17 @@ async function runCode() {
   // 有 prefix 的題目：自動組合 prefix + 使用者程式碼 + suffix
   let code = editor.getValue();
   if (currentExercise && currentExercise.prefix) {
+    if (/\bfunc\s+main\s*\(/.test(code) || /^\s*package\s+main/.test(code)) {
+      runBtn.disabled = false;
+      runBtn.textContent = '▶ 執行';
+      setOutput(
+        '⚠️  此題只需填入「函數主體」，請勿自行加 package main 或 func main()\n\n' +
+        '系統會自動組合 package / import / 測試 main，你只需要寫題目要求的函數。\n\n' +
+        '點擊「↺ 重置」可恢復原始模板。',
+        'error'
+      );
+      return;
+    }
     code = currentExercise.prefix + code + currentExercise.suffix;
   }
 
